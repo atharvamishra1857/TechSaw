@@ -20,7 +20,7 @@ export default function DispatchHistory() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/inquiries");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/inquiries`);
         if (res.ok) {
           const data = await res.json();
           // Filter ONLY the finished jobs

@@ -40,7 +40,7 @@ export default function CommandCenterTV() {
     const fetchData = async () => {
       try {
         const [inqRes, pulseRes] = await Promise.all([
-          fetch("${process.env.NEXT_PUBLIC_API_URL}/api/inquiries"),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/inquiries`),
           fetch("http://127.0.0.1:8000/api/pulse/live"),
         ]);
 

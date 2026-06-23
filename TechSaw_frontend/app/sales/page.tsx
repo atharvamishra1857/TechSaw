@@ -24,7 +24,7 @@ export default function SalesCRM() {
 
   const fetchInquiries = async () => {
     try {
-      const res = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/inquiries");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/inquiries`);
       if (res.ok) setInquiries(await res.json());
     } catch (err) {
       console.error(err);
@@ -41,7 +41,7 @@ export default function SalesCRM() {
   const handleManualLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/inquiries", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/inquiries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, quantity: 1 }),

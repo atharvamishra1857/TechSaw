@@ -18,7 +18,7 @@ export default function EngineerDashboard() {
 
   const fetchJobs = async () => {
     try {
-      const res = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/inquiries");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/inquiries`);
       if (res.ok) {
         const data = await res.json();
         setDesignJobs(data.filter((inq: Inquiry) => inq.status === "IN_DESIGN"));
