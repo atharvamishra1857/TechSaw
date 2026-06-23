@@ -1,0 +1,628 @@
+[
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Enum",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "declarative_base",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "models,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "models.",
+        "description": "models.",
+        "detail": "models.",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "SessionLocal",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "enum",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "enum",
+        "description": "enum",
+        "detail": "enum",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "models",
+        "description": "models",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "PulseStatus",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "InquiryStatus",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "MachineOperationType",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "_Known",
+        "kind": 6,
+        "importPath": "acs-frontend.node_modules.flatted.python.flatted",
+        "description": "acs-frontend.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _Known:\n    def __init__(self):\n        self.key = []\n        self.value = []\nclass _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    for i in range(len(value)):\n        yield i",
+        "detail": "acs-frontend.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "_String",
+        "kind": 6,
+        "importPath": "acs-frontend.node_modules.flatted.python.flatted",
+        "description": "acs-frontend.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    for i in range(len(value)):\n        yield i\ndef _object_keys(value):\n    for key in value:\n        yield key\ndef _is_array(value):",
+        "detail": "acs-frontend.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "parse",
+        "kind": 2,
+        "importPath": "acs-frontend.node_modules.flatted.python.flatted",
+        "description": "acs-frontend.node_modules.flatted.python.flatted",
+        "peekOfCode": "def parse(value, *args, **kwargs):\n    json = _json.loads(value, *args, **kwargs)\n    wrapped = []\n    for value in json:\n        wrapped.append(_wrap(value))\n    input = []\n    for value in wrapped:\n        if isinstance(value, _String):\n            input.append(value.value)\n        else:",
+        "detail": "acs-frontend.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "stringify",
+        "kind": 2,
+        "importPath": "acs-frontend.node_modules.flatted.python.flatted",
+        "description": "acs-frontend.node_modules.flatted.python.flatted",
+        "peekOfCode": "def stringify(value, *args, **kwargs):\n    known = _Known()\n    input = []\n    output = []\n    i = int(_index(known, input, value))\n    while i < len(input):\n        output.append(_transform(known, input, input[i]))\n        i += 1\n    return _json.dumps(output, *args, **kwargs)",
+        "detail": "acs-frontend.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "kind": 2,
+        "importPath": "acs_backend.database",
+        "description": "acs_backend.database",
+        "peekOfCode": "def get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "acs_backend.database",
+        "documentation": {}
+    },
+    {
+        "label": "SQLALCHEMY_DATABASE_URL",
+        "kind": 5,
+        "importPath": "acs_backend.database",
+        "description": "acs_backend.database",
+        "peekOfCode": "SQLALCHEMY_DATABASE_URL = os.getenv(\n    \"DATABASE_URL\", \n    \"postgresql://postgres:12345678@localhost:5432/acs_pulse_db\"\n)\n# Crucial Cloud Fix: Render and Heroku use 'postgres://', but SQLAlchemy requires 'postgresql://'\nif SQLALCHEMY_DATABASE_URL.startswith(\"postgres://\"):\n    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace(\"postgres://\", \"postgresql://\", 1)\nengine = create_engine(SQLALCHEMY_DATABASE_URL)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\nBase = declarative_base()",
+        "detail": "acs_backend.database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "acs_backend.database",
+        "description": "acs_backend.database",
+        "peekOfCode": "engine = create_engine(SQLALCHEMY_DATABASE_URL)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\nBase = declarative_base()\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "acs_backend.database",
+        "documentation": {}
+    },
+    {
+        "label": "SessionLocal",
+        "kind": 5,
+        "importPath": "acs_backend.database",
+        "description": "acs_backend.database",
+        "peekOfCode": "SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\nBase = declarative_base()\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "acs_backend.database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 5,
+        "importPath": "acs_backend.database",
+        "description": "acs_backend.database",
+        "peekOfCode": "Base = declarative_base()\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "acs_backend.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_live_pulse",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def get_live_pulse(db: Session = Depends(get_db)):\n    \"\"\"\n    Fetches the current state of the shop floor for the React Dashboard.\n    \"\"\"\n    pulses = db.query(models.FloorPulse).all()\n    return pulses\n@app.post(\"/api/pulse/{pulse_id}/block\", response_model=schemas.FloorPulseOut)\ndef block_machine(pulse_id: str, request: schemas.BlockRequest, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this when a machine stops.",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "block_machine",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def block_machine(pulse_id: str, request: schemas.BlockRequest, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this when a machine stops.\n    \"\"\"\n    pulse = db.query(models.FloorPulse).filter(models.FloorPulse.id == pulse_id).first()\n    if not pulse:\n        raise HTTPException(status_code=404, detail=\"Pulse record not found\")\n    pulse.status = models.PulseStatus.STOPPED\n    pulse.blocker_reason = request.blocker_reason\n    pulse.last_status_change_at = datetime.utcnow()",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "resume_machine",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def resume_machine(pulse_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this when the blocker is resolved and the machine starts.\n    \"\"\"\n    pulse = db.query(models.FloorPulse).filter(models.FloorPulse.id == pulse_id).first()\n    if not pulse:\n        raise HTTPException(status_code=404, detail=\"Pulse record not found\")\n    pulse.status = models.PulseStatus.RUNNING\n    pulse.blocker_reason = None\n    pulse.last_status_change_at = datetime.utcnow()",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "create_new_inquiry",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def create_new_inquiry(inquiry: schemas.InquiryCreate, db: Session = Depends(get_db)):\n    new_inquiry = models.Inquiry(\n        client_name=inquiry.client_name,\n        phone_number=inquiry.phone_number,\n        job_material=inquiry.job_material,\n        job_dimension=inquiry.job_dimension,\n        machine_type=inquiry.machine_type,\n        quantity=inquiry.quantity,\n        status=models.InquiryStatus.NEW\n    )",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_inquiries",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def get_all_inquiries(db: Session = Depends(get_db)):\n    \"\"\"\n    The internal Randar/ACS CRM Dashboard hits this to load the Kanban board.\n    \"\"\"\n    # Fetch all inquiries, sorted by newest first\n    inquiries = db.query(models.Inquiry).order_by(models.Inquiry.created_at.desc()).all()\n    return inquiries\n@app.post(\"/api/inquiries/{inquiry_id}/release\", response_model=schemas.InquiryOut)\ndef release_design_to_floor(inquiry_id: str, db: Session = Depends(get_db)):\n    \"\"\"",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "release_design_to_floor",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def release_design_to_floor(inquiry_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    The Design Engineer hits this when they physically hand the drawing to the floor.\n    \"\"\"\n    inquiry = db.query(models.Inquiry).filter(models.Inquiry.id == inquiry_id).first()\n    if not inquiry:\n        raise HTTPException(status_code=404, detail=\"Inquiry not found\")\n    # Flip the state to trigger the Shop Floor visibility\n    inquiry.status = models.InquiryStatus.IN_PRODUCTION\n    db.commit()",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "push_to_design",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def push_to_design(inquiry_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    The Owner hits this to move a Confirmed Order to the Engineer's desk.\n    \"\"\"\n    inquiry = db.query(models.Inquiry).filter(models.Inquiry.id == inquiry_id).first()\n    if not inquiry:\n        raise HTTPException(status_code=404, detail=\"Inquiry not found\")\n    # Flip the state to IN_DESIGN\n    inquiry.status = models.InquiryStatus.IN_DESIGN\n    db.commit()",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "get_floor_drawings",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def get_floor_drawings(db: Session = Depends(get_db)):\n    \"\"\"\n    Fetches the 'Stack of Papers' - jobs the Engineer has handed over but might not be on a machine yet.\n    \"\"\"\n    return db.query(models.Inquiry).filter(models.Inquiry.status == models.InquiryStatus.IN_PRODUCTION).all()\n@app.post(\"/api/pulse/{pulse_id}/assign/{inquiry_id}\", response_model=schemas.FloorPulseOut)\ndef assign_drawing_to_machine(pulse_id: str, inquiry_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this to load a new drawing onto a machine.\n    \"\"\"",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "assign_drawing_to_machine",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def assign_drawing_to_machine(pulse_id: str, inquiry_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this to load a new drawing onto a machine.\n    \"\"\"\n    inquiry = db.query(models.Inquiry).filter(models.Inquiry.id == inquiry_id).first()\n    pulse = db.query(models.FloorPulse).filter(models.FloorPulse.id == pulse_id).first()\n    if not inquiry or not pulse:\n        raise HTTPException(status_code=404, detail=\"Record not found\")\n    # 1. We create an Order record to translate the CRM Inquiry into a Factory Floor Job\n    new_order_id = f\"ord-{inquiry.id[:8]}\"",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "draft_quote",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def draft_quote(inquiry_id: str, price: int, db: Session = Depends(get_db)):\n    inquiry = db.query(models.Inquiry).filter(models.Inquiry.id == inquiry_id).first()\n    if not inquiry:\n        raise HTTPException(status_code=404, detail=\"Inquiry not found\")\n    inquiry.quoted_price = price\n    inquiry.status = models.InquiryStatus.QUOTED\n    db.commit()\n    db.refresh(inquiry)\n    return inquiry\n@app.post(\"/api/inquiries/{inquiry_id}/confirm\", response_model=schemas.InquiryOut)",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "confirm_quote",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def confirm_quote(inquiry_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    The Owner hits this when the client agrees to the quoted price.\n    Moves the job to CONFIRMED so it can be sent to Design.\n    \"\"\"\n    inquiry = db.query(models.Inquiry).filter(models.Inquiry.id == inquiry_id).first()\n    if not inquiry:\n        raise HTTPException(status_code=404, detail=\"Inquiry not found\")\n    inquiry.status = models.InquiryStatus.CONFIRMED\n    db.commit()",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "complete_floor_job",
+        "kind": 2,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "def complete_floor_job(pulse_id: str, order_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this when the physical machine work is done.\n    \"\"\"\n    pulse = db.query(models.FloorPulse).filter(models.FloorPulse.id == pulse_id).first()\n    if not pulse:\n        raise HTTPException(status_code=404, detail=\"Machine pulse not found\")\n    # 1. Extract the original Inquiry ID prefix\n    inq_prefix = order_id.replace(\"ord-\", \"\")\n    # 2. Find the original inquiry and mark it DISPATCHED",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "acs_backend.main",
+        "description": "acs_backend.main",
+        "peekOfCode": "app = FastAPI(title=\"ACS Live Floor Pulse API\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"], # In production, change \"*\" to your specific domain\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n@app.get(\"/api/pulse/live\", response_model=list[schemas.FloorPulseOut])\ndef get_live_pulse(db: Session = Depends(get_db)):",
+        "detail": "acs_backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "InquiryStatus",
+        "kind": 6,
+        "importPath": "acs_backend.models",
+        "description": "acs_backend.models",
+        "peekOfCode": "class InquiryStatus(str, enum.Enum):\n    NEW = \"NEW\"           \n    QUOTED = \"QUOTED\"     \n    CONFIRMED = \"CONFIRMED\" \n    IN_DESIGN = \"IN_DESIGN\"   \n    IN_PRODUCTION = \"IN_PRODUCTION\" \n    DISPATCHED = \"DISPATCHED\"\n    LOST = \"LOST\"\n# 2. OEM Machine Types\nclass MachineOperationType(str, enum.Enum):",
+        "detail": "acs_backend.models",
+        "documentation": {}
+    },
+    {
+        "label": "MachineOperationType",
+        "kind": 6,
+        "importPath": "acs_backend.models",
+        "description": "acs_backend.models",
+        "peekOfCode": "class MachineOperationType(str, enum.Enum):\n    AUTOMATIC = \"AUTOMATIC\"\n    SEMI_AUTOMATIC = \"SEMI_AUTOMATIC\"\n    MANUAL = \"MANUAL\"\nclass PulseStatus(str, enum.Enum):\n    RUNNING = \"RUNNING\"\n    STOPPED = \"STOPPED\"\nclass Machine(Base):\n    __tablename__ = \"machines\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))",
+        "detail": "acs_backend.models",
+        "documentation": {}
+    },
+    {
+        "label": "PulseStatus",
+        "kind": 6,
+        "importPath": "acs_backend.models",
+        "description": "acs_backend.models",
+        "peekOfCode": "class PulseStatus(str, enum.Enum):\n    RUNNING = \"RUNNING\"\n    STOPPED = \"STOPPED\"\nclass Machine(Base):\n    __tablename__ = \"machines\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    name = Column(String, index=True, nullable=False)\n    hourly_rate = Column(Integer, nullable=False)\n    pulses = relationship(\"FloorPulse\", back_populates=\"machine\")\nclass Order(Base):",
+        "detail": "acs_backend.models",
+        "documentation": {}
+    },
+    {
+        "label": "Machine",
+        "kind": 6,
+        "importPath": "acs_backend.models",
+        "description": "acs_backend.models",
+        "peekOfCode": "class Machine(Base):\n    __tablename__ = \"machines\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    name = Column(String, index=True, nullable=False)\n    hourly_rate = Column(Integer, nullable=False)\n    pulses = relationship(\"FloorPulse\", back_populates=\"machine\")\nclass Order(Base):\n    __tablename__ = \"orders\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    display_id = Column(String, index=True, nullable=False)",
+        "detail": "acs_backend.models",
+        "documentation": {}
+    },
+    {
+        "label": "Order",
+        "kind": 6,
+        "importPath": "acs_backend.models",
+        "description": "acs_backend.models",
+        "peekOfCode": "class Order(Base):\n    __tablename__ = \"orders\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    display_id = Column(String, index=True, nullable=False)\n    client_name = Column(String, nullable=False)\n    pulses = relationship(\"FloorPulse\", back_populates=\"order\")\nclass FloorPulse(Base):\n    __tablename__ = \"floor_pulse\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    machine_id = Column(String, ForeignKey(\"machines.id\"), nullable=False)",
+        "detail": "acs_backend.models",
+        "documentation": {}
+    },
+    {
+        "label": "FloorPulse",
+        "kind": 6,
+        "importPath": "acs_backend.models",
+        "description": "acs_backend.models",
+        "peekOfCode": "class FloorPulse(Base):\n    __tablename__ = \"floor_pulse\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    machine_id = Column(String, ForeignKey(\"machines.id\"), nullable=False)\n    order_id = Column(String, ForeignKey(\"orders.id\"), nullable=False)\n    status = Column(Enum(PulseStatus), default=PulseStatus.RUNNING, nullable=False)\n    blocker_reason = Column(String, nullable=True)\n    last_status_change_at = Column(DateTime, default=datetime.utcnow, nullable=False)\n    machine = relationship(\"Machine\", back_populates=\"pulses\")\n    order = relationship(\"Order\", back_populates=\"pulses\")",
+        "detail": "acs_backend.models",
+        "documentation": {}
+    },
+    {
+        "label": "Inquiry",
+        "kind": 6,
+        "importPath": "acs_backend.models",
+        "description": "acs_backend.models",
+        "peekOfCode": "class Inquiry(Base):\n    __tablename__ = \"inquiries\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    client_name = Column(String, nullable=False)\n    phone_number = Column(String, nullable=True)\n    # The OEM Pivot Fields\n    job_material = Column(String, nullable=False)    \n    job_dimension = Column(String, nullable=False)   \n    machine_type = Column(Enum(MachineOperationType), nullable=False)\n    quantity = Column(Integer, default=1)",
+        "detail": "acs_backend.models",
+        "documentation": {}
+    },
+    {
+        "label": "BlockRequest",
+        "kind": 6,
+        "importPath": "acs_backend.schemas",
+        "description": "acs_backend.schemas",
+        "peekOfCode": "class BlockRequest(BaseModel):\n    blocker_reason: str\nclass MachineOut(BaseModel):\n    id: str\n    name: str\n    hourly_rate: int\n    class Config:\n        from_attributes = True\nclass OrderOut(BaseModel):\n    id: str",
+        "detail": "acs_backend.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "MachineOut",
+        "kind": 6,
+        "importPath": "acs_backend.schemas",
+        "description": "acs_backend.schemas",
+        "peekOfCode": "class MachineOut(BaseModel):\n    id: str\n    name: str\n    hourly_rate: int\n    class Config:\n        from_attributes = True\nclass OrderOut(BaseModel):\n    id: str\n    display_id: str\n    client_name: str",
+        "detail": "acs_backend.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "OrderOut",
+        "kind": 6,
+        "importPath": "acs_backend.schemas",
+        "description": "acs_backend.schemas",
+        "peekOfCode": "class OrderOut(BaseModel):\n    id: str\n    display_id: str\n    client_name: str\n    class Config:\n        from_attributes = True\nclass FloorPulseOut(BaseModel):\n    id: str\n    status: PulseStatus\n    blocker_reason: Optional[str]",
+        "detail": "acs_backend.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "FloorPulseOut",
+        "kind": 6,
+        "importPath": "acs_backend.schemas",
+        "description": "acs_backend.schemas",
+        "peekOfCode": "class FloorPulseOut(BaseModel):\n    id: str\n    status: PulseStatus\n    blocker_reason: Optional[str]\n    last_status_change_at: datetime\n    machine: MachineOut\n    order: OrderOut\n    class Config:\n        from_attributes = True\n# What the website sends",
+        "detail": "acs_backend.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "InquiryCreate",
+        "kind": 6,
+        "importPath": "acs_backend.schemas",
+        "description": "acs_backend.schemas",
+        "peekOfCode": "class InquiryCreate(BaseModel):\n    client_name: str\n    phone_number: Optional[str] = None\n    job_material: str\n    job_dimension: str\n    machine_type: MachineOperationType\n    quantity: int = 1\n# What the CRM/Dashboards receive\nclass InquiryOut(BaseModel):\n    id: str",
+        "detail": "acs_backend.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "InquiryOut",
+        "kind": 6,
+        "importPath": "acs_backend.schemas",
+        "description": "acs_backend.schemas",
+        "peekOfCode": "class InquiryOut(BaseModel):\n    id: str\n    client_name: str\n    phone_number: Optional[str]\n    job_material: str\n    job_dimension: str\n    machine_type: MachineOperationType\n    quantity: int\n    status: InquiryStatus\n    quoted_price: Optional[int]",
+        "detail": "acs_backend.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "seed_database",
+        "kind": 2,
+        "importPath": "acs_backend.seed",
+        "description": "acs_backend.seed",
+        "peekOfCode": "def seed_database():\n    db = SessionLocal()\n    print(\"Clearing old data...\")\n    db.query(models.FloorPulse).delete()\n    db.query(models.Order).delete()\n    db.query(models.Machine).delete()\n    db.query(models.Inquiry).delete()\n    db.commit()\n    print(\"Injecting Machines...\")\n    machines = [",
+        "detail": "acs_backend.seed",
+        "documentation": {}
+    }
+]

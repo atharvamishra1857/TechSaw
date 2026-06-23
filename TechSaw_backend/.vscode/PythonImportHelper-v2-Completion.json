@@ -1,0 +1,374 @@
+[
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Enum",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "declarative_base",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "models,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "models.",
+        "description": "models.",
+        "detail": "models.",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "enum",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "enum",
+        "description": "enum",
+        "detail": "enum",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "PulseStatus",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "kind": 2,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "def get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "SQLALCHEMY_DATABASE_URL",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "SQLALCHEMY_DATABASE_URL = \"postgresql://postgres:12345678@localhost:5432/acs_pulse_db\"\nengine = create_engine(SQLALCHEMY_DATABASE_URL)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\nBase = declarative_base()\n# Dependency to get DB session per request\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "engine = create_engine(SQLALCHEMY_DATABASE_URL)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\nBase = declarative_base()\n# Dependency to get DB session per request\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "SessionLocal",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\nBase = declarative_base()\n# Dependency to get DB session per request\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "Base = declarative_base()\n# Dependency to get DB session per request\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_live_pulse",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_live_pulse(db: Session = Depends(get_db)):\n    \"\"\"\n    Fetches the current state of the shop floor for the React Dashboard.\n    \"\"\"\n    pulses = db.query(models.FloorPulse).all()\n    return pulses\n@app.post(\"/api/pulse/{pulse_id}/block\", response_model=schemas.FloorPulseOut)\ndef block_machine(pulse_id: str, request: schemas.BlockRequest, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this when a machine stops.",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "block_machine",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def block_machine(pulse_id: str, request: schemas.BlockRequest, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this when a machine stops.\n    \"\"\"\n    pulse = db.query(models.FloorPulse).filter(models.FloorPulse.id == pulse_id).first()\n    if not pulse:\n        raise HTTPException(status_code=404, detail=\"Pulse record not found\")\n    pulse.status = models.PulseStatus.STOPPED\n    pulse.blocker_reason = request.blocker_reason\n    pulse.last_status_change_at = datetime.utcnow()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "resume_machine",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def resume_machine(pulse_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this when the blocker is resolved and the machine starts.\n    \"\"\"\n    pulse = db.query(models.FloorPulse).filter(models.FloorPulse.id == pulse_id).first()\n    if not pulse:\n        raise HTTPException(status_code=404, detail=\"Pulse record not found\")\n    pulse.status = models.PulseStatus.RUNNING\n    pulse.blocker_reason = None\n    pulse.last_status_change_at = datetime.utcnow()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI(title=\"ACS Live Floor Pulse API\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"], # In production, change \"*\" to your specific domain\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n@app.get(\"/api/pulse/live\", response_model=list[schemas.FloorPulseOut])\ndef get_live_pulse(db: Session = Depends(get_db)):",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "PulseStatus",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class PulseStatus(str, enum.Enum):\n    RUNNING = \"RUNNING\"\n    STOPPED = \"STOPPED\"\nclass Machine(Base):\n    __tablename__ = \"machines\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    name = Column(String, index=True, nullable=False)\n    hourly_rate = Column(Integer, nullable=False) # Stored in INR\n    pulses = relationship(\"FloorPulse\", back_populates=\"machine\")\nclass Order(Base):",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Machine",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Machine(Base):\n    __tablename__ = \"machines\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    name = Column(String, index=True, nullable=False)\n    hourly_rate = Column(Integer, nullable=False) # Stored in INR\n    pulses = relationship(\"FloorPulse\", back_populates=\"machine\")\nclass Order(Base):\n    __tablename__ = \"orders\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    display_id = Column(String, index=True, nullable=False) # e.g., #1037",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Order",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Order(Base):\n    __tablename__ = \"orders\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    display_id = Column(String, index=True, nullable=False) # e.g., #1037\n    client_name = Column(String, nullable=False)\n    pulses = relationship(\"FloorPulse\", back_populates=\"order\")\nclass FloorPulse(Base):\n    __tablename__ = \"floor_pulse\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    machine_id = Column(String, ForeignKey(\"machines.id\"), nullable=False)",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "FloorPulse",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class FloorPulse(Base):\n    __tablename__ = \"floor_pulse\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    machine_id = Column(String, ForeignKey(\"machines.id\"), nullable=False)\n    order_id = Column(String, ForeignKey(\"orders.id\"), nullable=False)\n    status = Column(Enum(PulseStatus), default=PulseStatus.RUNNING, nullable=False)\n    blocker_reason = Column(String, nullable=True)\n    last_status_change_at = Column(DateTime, default=datetime.utcnow, nullable=False)\n    machine = relationship(\"Machine\", back_populates=\"pulses\")\n    order = relationship(\"Order\", back_populates=\"pulses\")",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "BlockRequest",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class BlockRequest(BaseModel):\n    blocker_reason: str\n# Outgoing schema for Machine data\nclass MachineOut(BaseModel):\n    id: str\n    name: str\n    hourly_rate: int\n    class Config:\n        from_attributes = True\n# Outgoing schema for Order data",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "MachineOut",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class MachineOut(BaseModel):\n    id: str\n    name: str\n    hourly_rate: int\n    class Config:\n        from_attributes = True\n# Outgoing schema for Order data\nclass OrderOut(BaseModel):\n    id: str\n    display_id: str",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "OrderOut",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class OrderOut(BaseModel):\n    id: str\n    display_id: str\n    client_name: str\n    class Config:\n        from_attributes = True\n# Outgoing schema for the Live Dashboard\nclass FloorPulseOut(BaseModel):\n    id: str\n    status: PulseStatus",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "FloorPulseOut",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class FloorPulseOut(BaseModel):\n    id: str\n    status: PulseStatus\n    blocker_reason: Optional[str]\n    last_status_change_at: datetime\n    machine: MachineOut\n    order: OrderOut\n    class Config:\n        from_attributes = True",
+        "detail": "schemas",
+        "documentation": {}
+    }
+]
