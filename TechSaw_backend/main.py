@@ -203,7 +203,7 @@ def confirm_quote(inquiry_id: str, db: Session = Depends(get_db)):
     db.refresh(inquiry)
     return inquiry
 
-@app.post("/api/pulse/{pulse_id}/complete/{order_id}") # <-- Removed the response_model restriction
+@app.post("/api/pulse/{pulse_id}/complete/{order_id}")
 def complete_floor_job(pulse_id: str, order_id: str, db: Session = Depends(get_db)):
     """
     Supervisor hits this when the physical machine work is done.
@@ -213,17 +213,20 @@ def complete_floor_job(pulse_id: str, order_id: str, db: Session = Depends(get_d
     if not pulse:
         raise HTTPException(status_code=404, detail="Machine pulse not found")
 
-    # 1. Extract the original Inquiry ID prefix
+    # 1. Find the original inquiry and mark it DISPATCHED
     inq_prefix = order_id.replace("ord-", "")
-    
-    # 2. Find the original inquiry and mark it DISPATCHED
     inquiry = db.query(models.Inquiry).filter(models.Inquiry.id.startswith(inq_prefix)).first()
+    
     if inquiry:
         inquiry.status = models.InquiryStatus.DISPATCHED
         
-    # 3. Delete the active pulse. This removes the active job from the machine,
-    # making the machine available for the "Load New" button again.
-    db.delete(pulse)
-    db.commit()
+    # 2. Reset the pulse to IDLE instead of deleting the machine
+    pulse.order_id = "idle"
+    pulse.status = models.PulseStatus.STOPPED
+    pulse.blocker_reason = "IDLE"
+    pulse.last_status_change_at = datetime.utcnow()
     
-    return {"status": "success", "message": "Job complete and archived."}
+    db.commit()
+    db.refresh(pulse)
+    
+    return {"status": "success", "message": "Job complete and machine reset to idle."}
