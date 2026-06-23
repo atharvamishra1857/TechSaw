@@ -1,198 +1,284 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AlertTriangle, PlayCircle, StopCircle, ClipboardList, ArrowDownCircle, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import {
+  Activity,
+  AlertTriangle,
+  PenTool,
+  CheckCircle2,
+  TrendingUp,
+  Clock,
+} from "lucide-react";
+
+type Inquiry = {
+  id: string;
+  client_name: string;
+  job_material: string;
+  job_dimension: string;
+  machine_type: string;
+  status: string;
+  created_at: string;
+};
 
 type Pulse = {
   id: string;
   status: "RUNNING" | "STOPPED";
   blocker_reason: string | null;
   last_status_change_at: string;
-  machine: { name: string };
-  order: { id: string; display_id: string; client_name: string };
+  machine: { name: string; hourly_rate: number };
+  order: { display_id: string; client_name: string };
 };
 
-type Drawing = {
-  id: string;
-  client_name: string;
-  job_material: string;
-  job_dimension: string;
-};
-
-const BLOCKER_REASONS = process.env.NEXT_PUBLIC_BLOCKER_REASONS?.split(",") || ["Waiting for Material", "Machine Breakdown", "Operator Absent"];
-
-export default function FloorKiosk() {
+export default function CommandCenterTV() {
+  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [pulses, setPulses] = useState<Pulse[]>([]);
-  const [drawings, setDrawings] = useState<Drawing[]>([]);
-  const [haltingPulseId, setHaltingPulseId] = useState<string | null>(null);
-  const [assigningPulseId, setAssigningPulseId] = useState<string | null>(null);
+  const [now, setNow] = useState(Date.now());
 
-  const fetchData = async () => {
-    try {
-      const [pulseRes, drawRes] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pulse/live`),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/floor/drawings`)
-      ]);
-      if (pulseRes.ok) setPulses(await pulseRes.json());
-      if (drawRes.ok) setDrawings(await drawRes.json());
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
+  // 1. Fetching Logic (Polling both endpoints)
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [inqRes, pulseRes] = await Promise.all([
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pulse/live`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/inquiries`),
+  
+        ]);
+
+        if (inqRes.ok) setInquiries(await inqRes.json());
+        if (pulseRes.ok) setPulses(await pulseRes.json());
+      } catch (err) {
+        console.error("Failed to fetch dashboard data", err);
+      }
+    };
+
     fetchData();
-    const interval = setInterval(fetchData, 5000);
+    const interval = setInterval(fetchData, 5000); // Refresh every 5s
     return () => clearInterval(interval);
   }, []);
 
-  const handleHalt = async (id: string, reason: string) => {
-    setHaltingPulseId(null);
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pulse/${id}/block`, {
-      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ blocker_reason: reason }),
-    });
-    fetchData();
+  // 2. Ticking the local clock every 1 second
+  useEffect(() => {
+    const ticker = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(ticker);
+  }, []);
+
+  // Time format helper
+  const formatTime = (ms: number, showSeconds: boolean = false) => {
+    const totalSec = Math.floor(ms / 1000);
+    const h = Math.floor(totalSec / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    if (showSeconds)
+      return `${h}h ${m.toString().padStart(2, "0")}m ${s.toString().padStart(2, "0")}s`;
+    return `${h}h ${m}m`;
   };
 
-  const handleResume = async (id: string) => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pulse/${id}/resume`, { method: "POST" });
-    fetchData();
+  // Data processing
+  const stats = {
+    new: inquiries.filter((i) => i.status === "NEW").length,
+    quoted: inquiries.filter((i) => i.status === "QUOTED").length,
+    inDesign: inquiries.filter((i) => i.status === "IN_DESIGN"),
+    inProduction: inquiries.filter((i) => i.status === "IN_PRODUCTION").length,
   };
 
-  const handleAssignJob = async (pulseId: string, inquiryId: string) => {
-    setAssigningPulseId(null);
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pulse/${pulseId}/assign/${inquiryId}`, { method: "POST" });
-    fetchData();
-  };
-
-  const handleFinishJob = async (pulseId: string, orderId: string) => {
-    if(window.confirm("Are you sure this job is 100% complete and ready to dispatch?")) {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pulse/${pulseId}/complete/${orderId}`, { method: "POST" });
-      fetchData();
-    }
-  };
+  const stoppedMachines = pulses.filter((p) => p.status === "STOPPED");
+  const runningMachines = pulses.filter((p) => p.status === "RUNNING");
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-6 font-sans select-none overflow-x-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8 border-b border-slate-700 pb-4">
-          <h1 className="text-3xl font-black text-slate-100 tracking-tight">Shop Floor Terminal</h1>
-          <div className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-lg font-bold text-slate-300">
-            <ClipboardList className="w-5 h-5 text-indigo-400" />
-            {drawings.length} Drawings Ready
+    <div className="h-screen w-full bg-slate-950 text-slate-100 overflow-hidden font-sans p-6 flex flex-col">
+      {/* HEADER */}
+
+      <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-800">
+        <div className="flex items-center gap-4">
+          <div className="p-3 bg-indigo-500/20 text-indigo-400 rounded-xl">
+            <Activity className="w-8 h-8" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-black tracking-tight text-white">
+              {process.env.NEXT_PUBLIC_CLIENT_NAME}{" "}
+              <span className="text-indigo-400">Command Center</span>
+            </h1>
+            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider mt-0.5">
+              Smart Factory Pipeline · TechSaw OS
+            </p>
+          </div>
+        </div>
+        <div className="text-right">
+          <div className="text-3xl font-bold font-mono tracking-tighter text-white">
+            {new Date(now).toLocaleTimeString("en-IN", { hour12: true })}
+          </div>
+          <div className="text-slate-400 font-medium text-sm mt-1">
+            {new Date().toLocaleDateString("en-IN", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* MAIN GRID */}
+      <div className="flex-1 grid grid-cols-12 gap-6 min-h-0">
+        {/* COLUMN 1: SALES PIPELINE (3 Cols) */}
+        <div className="col-span-3 flex flex-col gap-4">
+          <h2 className="text-xl font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5" /> Sales Pipeline
+          </h2>
+
+          <Link href="/sales" className="flex-1 flex flex-col gap-4 min-h-0">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex-1 flex flex-col justify-center items-center relative overflow-hidden hover:border-slate-700 transition-colors">
+              <div className="absolute top-0 w-full h-1 bg-blue-500"></div>
+              <span className="text-7xl font-black text-white mb-2">
+                {stats.new}
+              </span>
+              <span className="text-slate-400 text-lg font-bold uppercase tracking-wider">
+                New Inquiries
+              </span>
+            </div>
+
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex-1 flex flex-col justify-center items-center relative overflow-hidden hover:border-slate-700 transition-colors">
+              <div className="absolute top-0 w-full h-1 bg-amber-500"></div>
+              <span className="text-7xl font-black text-white mb-2">
+                {stats.quoted}
+              </span>
+              <span className="text-slate-400 text-lg font-bold uppercase tracking-wider">
+                Quotes Pending
+              </span>
+            </div>
+
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex-1 flex flex-col justify-center items-center relative overflow-hidden hover:border-slate-700 transition-colors">
+              <div className="absolute top-0 w-full h-1 bg-green-500"></div>
+              <span className="text-7xl font-black text-white mb-2">
+                {stats.inProduction}
+              </span>
+              <span className="text-slate-400 text-lg font-bold uppercase tracking-wider">
+                Active Floor Jobs
+              </span>
+            </div>
+          </Link>
+        </div>
+
+        {/* COLUMN 2: ENGINEERING BOTTLENECK (4 Cols) */}
+        <div className="col-span-4 flex flex-col min-h-0">
+          <h2 className="text-xl font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <PenTool className="w-5 h-5" /> Active Design Queue
+          </h2>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex-1 overflow-hidden flex flex-col gap-3">
+            {stats.inDesign.length === 0 ? (
+              <div className="h-full flex items-center justify-center text-slate-600 font-medium text-xl">
+                Engineering queue is clear.
+              </div>
+            ) : (
+              stats.inDesign.map((job) => {
+                const daysOld = Math.floor(
+                  (now - new Date(job.created_at).getTime()) /
+                    (1000 * 3600 * 24),
+                );
+                return (
+                  <div
+                    key={job.id}
+                    className="bg-slate-950 border border-slate-800 rounded-xl p-4 flex justify-between items-center"
+                  >
+                    <div>
+                      <h3 className="text-xl font-bold text-white">
+                        {job.client_name}
+                      </h3>
+                      <div className="text-slate-400 text-sm mt-1">
+                        {job.job_dimension} ·{" "}
+                        {job.machine_type.replace("_", " ")}
+                      </div>
+                    </div>
+                    <div
+                      className={`px-4 py-2 rounded-lg font-bold flex items-center gap-2 ${daysOld > 2 ? "bg-red-500/10 text-red-400 border border-red-500/20" : "bg-slate-800 text-slate-300"}`}
+                    >
+                      <Clock className="w-4 h-4" />
+                      {daysOld} Days
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {pulses.map((pulse) => {
-            // STATE LOGIC
-            const isIdle = pulse.order.id === "idle" || pulse.blocker_reason === "IDLE";
-            const isStopped = pulse.status === "STOPPED" && !isIdle;
-            const isHalting = haltingPulseId === pulse.id;
-            const isAssigning = assigningPulseId === pulse.id;
-
-            return (
-              <div key={pulse.id} className={`flex flex-col justify-between rounded-2xl p-6 border-4 transition-all min-h-[320px] 
-                ${isStopped ? "bg-red-950/30 border-red-600" : 
-                  isIdle ? "bg-slate-800/50 border-slate-700 border-dashed" : "bg-slate-800 border-slate-700"}`}>
-                
-                {/* 1. Header & Current Job */}
-                <div className="mb-6">
-                  <div className="flex justify-between items-start">
-                    <h2 className={`text-2xl font-black mb-1 ${isIdle ? 'text-slate-400' : 'text-white'}`}>{pulse.machine.name}</h2>
-                    {!isAssigning && !isStopped && !isHalting && !isIdle && (
-                      <button onClick={() => setAssigningPulseId(pulse.id)} className="text-xs font-bold uppercase tracking-wider bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-md flex items-center gap-1 transition-colors">
-                        <ArrowDownCircle className="w-4 h-4" /> Load New
-                      </button>
-                    )}
-                  </div>
-                  
-                  {/* Current Active Job Display */}
-                  {!isAssigning && !isIdle && (
-                    <div className="mt-2 p-3 bg-slate-900/50 rounded-lg border border-slate-700/50">
-                      <div className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Current Job</div>
-                      <p className="text-slate-200 font-medium text-lg">{pulse.order.display_id} · {pulse.order.client_name}</p>
-                    </div>
-                  )}
+        {/* COLUMN 3: LIVE SHOP FLOOR (5 Cols) */}
+        <div className="col-span-5 flex flex-col min-h-0">
+          <div className="flex justify-between items-end mb-4 shrink-0">
+            <h2 className="text-xl font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+              <Activity className="w-5 h-5" /> Floor Pulse
+            </h2>
+          </div>
+          
+          {/* NEW SPLIT GRID: 3 cols for Alerts, 2 cols for Running */}
+          <div className="flex-1 min-h-0 grid grid-cols-5 gap-6">
+            
+            {/* LEFT SIDE: BLOCKED MACHINES (3 Cols) */}
+            <div className="col-span-3 flex flex-col gap-3 overflow-y-auto pb-6 pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-700/50 [&::-webkit-scrollbar-thumb]:rounded-full">
+              {stoppedMachines.length === 0 ? (
+                <div className="h-full border-2 border-slate-800 border-dashed rounded-2xl flex flex-col items-center justify-center text-slate-500 font-medium p-6 text-center">
+                  <CheckCircle2 className="w-10 h-10 text-slate-700 mb-2" />
+                  No active blockers. All assigned machines are running.
                 </div>
-
-                {/* 2. The Interaction Layer */}
-                <div className="mt-auto">
-                  
-                  {/* View: Assignment Menu */}
-                  {isAssigning && (
-                    <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-4">
-                      <div className="text-slate-300 font-bold mb-2 flex items-center gap-2 border-b border-slate-700 pb-2">
-                        <ClipboardList className="w-4 h-4" /> Select Drawing to Start:
+              ) : (
+                stoppedMachines.map((pulse) => {
+                  const elapsedMs = Math.max(0, now - new Date(pulse.last_status_change_at).getTime());
+                  return (
+                    <div key={pulse.id} className="bg-red-950/40 border-2 border-red-900/50 rounded-2xl p-5 relative overflow-hidden shrink-0">
+                      <div className="absolute top-0 left-0 w-1 h-full bg-red-500 animate-pulse"></div>
+                      {/* Top row: machine name + time lost */}
+                      <div className="flex justify-between items-center gap-4">
+                        <h3 className="text-xl font-bold text-red-400 flex items-center gap-2 truncate">
+                          <AlertTriangle className="w-5 h-5 shrink-0" />
+                          <span className="truncate">{pulse.machine.name}</span>
+                        </h3>
+                        <div className="text-right shrink-0">
+                          <div className="text-[10px] font-bold text-red-500/70 uppercase tracking-wider mb-0.5">Time Lost</div>
+                          <div className="text-2xl font-black text-red-400 tabular-nums animate-pulse leading-none">{formatTime(elapsedMs, true)}</div>
+                        </div>
                       </div>
-                      <div className="max-h-48 overflow-y-auto flex flex-col gap-2 pr-1 custom-scrollbar">
-                        {drawings.length === 0 ? (
-                          <div className="text-slate-500 text-sm text-center py-4">No new drawings available.</div>
-                        ) : (
-                          drawings.map(draw => (
-                            <button key={draw.id} onClick={() => handleAssignJob(pulse.id, draw.id)} className="w-full p-3 bg-slate-700 hover:bg-indigo-600 active:bg-indigo-700 text-left rounded-lg border border-slate-600 transition-colors group">
-                              <div className="font-bold text-white">{draw.client_name}</div>
-                              <div className="text-xs text-slate-400 mt-1">{draw.job_dimension} · {draw.job_material}</div>
-                            </button>
-                          ))
-                        )}
-                      </div>
-                      <button onClick={() => setAssigningPulseId(null)} className="w-full py-3 mt-2 text-slate-400 hover:text-slate-200 font-bold bg-slate-900 rounded-lg">Cancel</button>
-                    </div>
-                  )}
-
-                  {/* View: IDLE State (Empty Machine) */}
-                  {isIdle && !isAssigning && (
-                    <div className="flex flex-col items-center justify-center py-4 animate-in fade-in">
-                      <div className="text-slate-500 font-bold mb-4 uppercase tracking-wider text-sm">Machine Available</div>
-                      <button onClick={() => setAssigningPulseId(pulse.id)} className="w-full py-5 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xl rounded-xl flex items-center justify-center gap-2 shadow-lg transition-colors border border-indigo-500">
-                        <ArrowDownCircle className="w-6 h-6" /> ASSIGN NEW JOB
-                      </button>
-                    </div>
-                  )}
-
-                  {/* View: Stopped Alert */}
-                  {isStopped && !isAssigning && (
-                    <div className="flex flex-col gap-4">
-                      <div className="bg-red-900/50 text-red-200 p-4 rounded-xl font-bold flex items-center gap-3 text-lg border border-red-700/50">
-                        <AlertTriangle className="w-6 h-6 text-red-500 shrink-0" />
+                      {/* Client name */}
+                      <p className="text-red-300/70 font-medium text-sm mt-2 truncate">{pulse.order.client_name}</p>
+                      {/* Blocker badge */}
+                      <div className="mt-3 px-3 py-1.5 bg-red-900/40 text-red-300 border border-red-800/50 rounded text-xs font-bold uppercase tracking-wider inline-block max-w-full truncate">
                         {pulse.blocker_reason}
                       </div>
-                      <button onClick={() => handleResume(pulse.id)} className="w-full py-5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xl rounded-xl shadow-lg flex items-center justify-center gap-3 transition-colors">
-                        <PlayCircle className="w-7 h-7" /> RESUME WORK
-                      </button>
                     </div>
-                  )}
+                  );
+                })
+              )}
+            </div>
 
-                  {/* View: Halting Menu */}
-                  {!isStopped && isHalting && !isAssigning && !isIdle && (
-                    <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-4">
-                      <div className="text-slate-300 font-bold mb-2">Select Blocker Reason:</div>
-                      {BLOCKER_REASONS.map(reason => (
-                        <button key={reason} onClick={() => handleHalt(pulse.id, reason)} className="w-full py-4 px-4 bg-slate-700 hover:bg-slate-600 text-left font-bold text-lg rounded-xl border border-slate-600 transition-colors">
-                          {reason}
-                        </button>
-                      ))}
-                      <button onClick={() => setHaltingPulseId(null)} className="w-full py-4 mt-2 text-slate-400 font-bold bg-slate-900 rounded-lg">Cancel</button>
-                    </div>
-                  )}
-
-                  {/* View: Default Running State */}
-                  {!isStopped && !isHalting && !isAssigning && !isIdle && (
-                    <div className="flex gap-3">
-                      <button onClick={() => setHaltingPulseId(pulse.id)} className="flex-1 py-4 bg-slate-700/80 hover:bg-slate-600 text-slate-300 font-black text-sm rounded-xl flex items-center justify-center gap-2 transition-colors border border-slate-600">
-                        <StopCircle className="w-5 h-5" /> HALT
-                      </button>
-                      <button onClick={() => handleFinishJob(pulse.id, pulse.order.id)} className="flex-1 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm rounded-xl flex items-center justify-center gap-2 transition-colors shadow-md">
-                        <CheckCircle2 className="w-5 h-5" /> FINISH
-                      </button>
-                    </div>
-                  )}
-
-                </div>
+            {/* RIGHT SIDE: RUNNING MACHINES (2 Cols) */}
+            <div className="col-span-2 flex flex-col gap-3 overflow-y-auto pb-6 pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-700/50 [&::-webkit-scrollbar-thumb]:rounded-full">
+              <div className="text-xs font-bold text-emerald-500/70 uppercase tracking-wider mb-1 border-b border-slate-800 pb-2">
+                Active Production
               </div>
-            );
-          })}
+              
+              {runningMachines.length === 0 ? (
+                <div className="text-slate-600 text-sm font-medium mt-4">No machines currently running.</div>
+              ) : (
+                runningMachines.map((pulse) => (
+                  <div key={pulse.id} className="bg-slate-900 border border-slate-800 rounded-xl p-4 shrink-0 hover:border-slate-700 transition-colors">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-bold text-lg text-slate-200">{pulse.machine.name}</h3>
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                    </div>
+                    <p className="text-slate-400 text-sm truncate">{pulse.order.display_id} · {pulse.order.client_name}</p>
+                    <div className="mt-4 flex items-center gap-2 text-emerald-500 text-xs font-bold uppercase tracking-wider bg-emerald-500/10 inline-flex px-2.5 py-1 rounded-md border border-emerald-500/20">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      </span>
+                      Running
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+            
+          </div>
         </div>
       </div>
     </div>
