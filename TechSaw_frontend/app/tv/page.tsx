@@ -26,8 +26,8 @@ type Pulse = {
   status: "RUNNING" | "STOPPED";
   blocker_reason: string | null;
   last_status_change_at: string;
-  machine: { name: string; hourly_rate: number };
-  order: { display_id: string; client_name: string };
+  machine_label: string;           // replaces machine: { name, hourly_rate }
+  order: { id: string; display_id: string; client_name: string };
 };
 
 export default function CommandCenterTV() {
@@ -231,7 +231,7 @@ export default function CommandCenterTV() {
                       <div className="flex justify-between items-center gap-4">
                         <h3 className="text-xl font-bold text-red-400 flex items-center gap-2 truncate">
                           <AlertTriangle className="w-5 h-5 shrink-0" />
-                          <span className="truncate">{pulse.machine.name}</span>
+                          <span className="truncate">{pulse.machine_label}</span>
                         </h3>
                         <div className="text-right shrink-0">
                           <div className="text-[10px] font-bold text-red-500/70 uppercase tracking-wider mb-0.5">Time Lost</div>
@@ -262,7 +262,7 @@ export default function CommandCenterTV() {
                 runningMachines.map((pulse) => (
                   <div key={pulse.id} className="bg-slate-900 border border-slate-800 rounded-xl p-4 shrink-0 hover:border-slate-700 transition-colors">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-bold text-lg text-slate-200">{pulse.machine.name}</h3>
+                      <h3 className="font-bold text-lg text-slate-200">{pulse.machine_label}</h3>
                       <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
                     </div>
                     <p className="text-slate-400 text-sm truncate">{pulse.order.display_id} · {pulse.order.client_name}</p>

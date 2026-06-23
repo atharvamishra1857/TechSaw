@@ -97,19 +97,44 @@ def get_all_inquiries(db: Session = Depends(get_db)):
 @app.post("/api/inquiries/{inquiry_id}/release", response_model=schemas.InquiryOut)
 def release_design_to_floor(inquiry_id: str, db: Session = Depends(get_db)):
     """
-    The Design Engineer hits this when they physically hand the drawing to the floor.
+    Engineer hits this when they hand the drawing to the floor.
+    Creates a live FloorPulse job automatically — no machine pre-seeding needed.
     """
     inquiry = db.query(models.Inquiry).filter(models.Inquiry.id == inquiry_id).first()
-    
     if not inquiry:
         raise HTTPException(status_code=404, detail="Inquiry not found")
-        
-    # Flip the state to trigger the Shop Floor visibility
+
+    # 1. Create the Order record from this inquiry
+    order_id = f"ord-{inquiry.id[:8]}"
+    existing_order = db.query(models.Order).filter(models.Order.id == order_id).first()
+    if not existing_order:
+        new_order = models.Order(
+            id=order_id,
+            display_id=f"#{inquiry.id[:4].upper()}",
+            client_name=inquiry.client_name
+        )
+        db.add(new_order)
+        db.commit()
+
+    # 2. Create a FloorPulse for this job directly
+    # Check one doesn't already exist for this order
+    existing_pulse = db.query(models.FloorPulse).filter(
+        models.FloorPulse.order_id == order_id
+    ).first()
+
+    if not existing_pulse:
+        new_pulse = models.FloorPulse(
+            machine_id="floor",   # We'll fix the model below
+            order_id=order_id,
+            status=models.PulseStatus.RUNNING,
+            blocker_reason=None,
+        )
+        db.add(new_pulse)
+
+    # 3. Flip inquiry status
     inquiry.status = models.InquiryStatus.IN_PRODUCTION
-    
     db.commit()
     db.refresh(inquiry)
-    
     return inquiry
 
 
@@ -205,28 +230,19 @@ def confirm_quote(inquiry_id: str, db: Session = Depends(get_db)):
 
 @app.post("/api/pulse/{pulse_id}/complete/{order_id}")
 def complete_floor_job(pulse_id: str, order_id: str, db: Session = Depends(get_db)):
-    """
-    Supervisor hits this when the physical machine work is done.
-    """
     pulse = db.query(models.FloorPulse).filter(models.FloorPulse.id == pulse_id).first()
-    
     if not pulse:
-        raise HTTPException(status_code=404, detail="Machine pulse not found")
+        raise HTTPException(status_code=404, detail="Pulse not found")
 
-    # 1. Find the original inquiry and mark it DISPATCHED
+    # Mark inquiry as dispatched
     inq_prefix = order_id.replace("ord-", "")
-    inquiry = db.query(models.Inquiry).filter(models.Inquiry.id.startswith(inq_prefix)).first()
-    
+    inquiry = db.query(models.Inquiry).filter(
+        models.Inquiry.id.startswith(inq_prefix)
+    ).first()
     if inquiry:
         inquiry.status = models.InquiryStatus.DISPATCHED
-        
-    # 2. Reset the pulse to IDLE instead of deleting the machine
-    pulse.order_id = "idle"
-    pulse.status = models.PulseStatus.STOPPED
-    pulse.blocker_reason = "IDLE"
-    pulse.last_status_change_at = datetime.utcnow()
-    
+
+    # Delete the pulse — job is done, no machine to reset to idle
+    db.delete(pulse)
     db.commit()
-    db.refresh(pulse)
-    
-    return {"status": "success", "message": "Job complete and machine reset to idle."}
+    return {"status": "success", "message": "Job dispatched and archived."}

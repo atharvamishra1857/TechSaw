@@ -6,13 +6,6 @@ from models import PulseStatus, InquiryStatus, MachineOperationType
 class BlockRequest(BaseModel):
     blocker_reason: str
 
-class MachineOut(BaseModel):
-    id: str
-    name: str
-    hourly_rate: int
-    class Config:
-        from_attributes = True
-
 class OrderOut(BaseModel):
     id: str
     display_id: str
@@ -22,15 +15,14 @@ class OrderOut(BaseModel):
 
 class FloorPulseOut(BaseModel):
     id: str
-    status: PulseStatus
+    status: str
     blocker_reason: Optional[str]
     last_status_change_at: datetime
-    machine: MachineOut
     order: OrderOut
+    machine_label: Optional[str] = "Floor"
     class Config:
         from_attributes = True
 
-# What the website sends
 class InquiryCreate(BaseModel):
     client_name: str
     phone_number: Optional[str] = None
@@ -39,7 +31,6 @@ class InquiryCreate(BaseModel):
     machine_type: MachineOperationType
     quantity: int = 1
 
-# What the CRM/Dashboards receive
 class InquiryOut(BaseModel):
     id: str
     client_name: str

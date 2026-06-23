@@ -396,7 +396,7 @@
         "kind": 2,
         "importPath": "TechSaw_backend.main",
         "description": "TechSaw_backend.main",
-        "peekOfCode": "def release_design_to_floor(inquiry_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    The Design Engineer hits this when they physically hand the drawing to the floor.\n    \"\"\"\n    inquiry = db.query(models.Inquiry).filter(models.Inquiry.id == inquiry_id).first()\n    if not inquiry:\n        raise HTTPException(status_code=404, detail=\"Inquiry not found\")\n    # Flip the state to trigger the Shop Floor visibility\n    inquiry.status = models.InquiryStatus.IN_PRODUCTION\n    db.commit()",
+        "peekOfCode": "def release_design_to_floor(inquiry_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    Engineer hits this when they hand the drawing to the floor.\n    Creates a live FloorPulse job automatically — no machine pre-seeding needed.\n    \"\"\"\n    inquiry = db.query(models.Inquiry).filter(models.Inquiry.id == inquiry_id).first()\n    if not inquiry:\n        raise HTTPException(status_code=404, detail=\"Inquiry not found\")\n    # 1. Create the Order record from this inquiry\n    order_id = f\"ord-{inquiry.id[:8]}\"",
         "detail": "TechSaw_backend.main",
         "documentation": {}
     },
@@ -450,7 +450,7 @@
         "kind": 2,
         "importPath": "TechSaw_backend.main",
         "description": "TechSaw_backend.main",
-        "peekOfCode": "def complete_floor_job(pulse_id: str, order_id: str, db: Session = Depends(get_db)):\n    \"\"\"\n    Supervisor hits this when the physical machine work is done.\n    \"\"\"\n    pulse = db.query(models.FloorPulse).filter(models.FloorPulse.id == pulse_id).first()\n    if not pulse:\n        raise HTTPException(status_code=404, detail=\"Machine pulse not found\")\n    # 1. Find the original inquiry and mark it DISPATCHED\n    inq_prefix = order_id.replace(\"ord-\", \"\")\n    inquiry = db.query(models.Inquiry).filter(models.Inquiry.id.startswith(inq_prefix)).first()",
+        "peekOfCode": "def complete_floor_job(pulse_id: str, order_id: str, db: Session = Depends(get_db)):\n    pulse = db.query(models.FloorPulse).filter(models.FloorPulse.id == pulse_id).first()\n    if not pulse:\n        raise HTTPException(status_code=404, detail=\"Pulse not found\")\n    # Mark inquiry as dispatched\n    inq_prefix = order_id.replace(\"ord-\", \"\")\n    inquiry = db.query(models.Inquiry).filter(\n        models.Inquiry.id.startswith(inq_prefix)\n    ).first()\n    if inquiry:",
         "detail": "TechSaw_backend.main",
         "documentation": {}
     },
@@ -468,7 +468,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.models",
         "description": "TechSaw_backend.models",
-        "peekOfCode": "class InquiryStatus(str, enum.Enum):\n    NEW = \"NEW\"           \n    QUOTED = \"QUOTED\"     \n    CONFIRMED = \"CONFIRMED\" \n    IN_DESIGN = \"IN_DESIGN\"   \n    IN_PRODUCTION = \"IN_PRODUCTION\" \n    DISPATCHED = \"DISPATCHED\"\n    LOST = \"LOST\"\n# 2. OEM Machine Types\nclass MachineOperationType(str, enum.Enum):",
+        "peekOfCode": "class InquiryStatus(str, enum.Enum):\n    NEW = \"NEW\"\n    QUOTED = \"QUOTED\"\n    CONFIRMED = \"CONFIRMED\"\n    IN_DESIGN = \"IN_DESIGN\"\n    IN_PRODUCTION = \"IN_PRODUCTION\"\n    DISPATCHED = \"DISPATCHED\"\n    LOST = \"LOST\"\nclass MachineOperationType(str, enum.Enum):\n    AUTOMATIC = \"AUTOMATIC\"",
         "detail": "TechSaw_backend.models",
         "documentation": {}
     },
@@ -477,7 +477,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.models",
         "description": "TechSaw_backend.models",
-        "peekOfCode": "class MachineOperationType(str, enum.Enum):\n    AUTOMATIC = \"AUTOMATIC\"\n    SEMI_AUTOMATIC = \"SEMI_AUTOMATIC\"\n    MANUAL = \"MANUAL\"\nclass PulseStatus(str, enum.Enum):\n    RUNNING = \"RUNNING\"\n    STOPPED = \"STOPPED\"\nclass Machine(Base):\n    __tablename__ = \"machines\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))",
+        "peekOfCode": "class MachineOperationType(str, enum.Enum):\n    AUTOMATIC = \"AUTOMATIC\"\n    SEMI_AUTOMATIC = \"SEMI_AUTOMATIC\"\n    MANUAL = \"MANUAL\"\nclass PulseStatus(str, enum.Enum):\n    RUNNING = \"RUNNING\"\n    STOPPED = \"STOPPED\"\nclass Order(Base):\n    __tablename__ = \"orders\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))",
         "detail": "TechSaw_backend.models",
         "documentation": {}
     },
@@ -486,16 +486,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.models",
         "description": "TechSaw_backend.models",
-        "peekOfCode": "class PulseStatus(str, enum.Enum):\n    RUNNING = \"RUNNING\"\n    STOPPED = \"STOPPED\"\nclass Machine(Base):\n    __tablename__ = \"machines\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    name = Column(String, index=True, nullable=False)\n    hourly_rate = Column(Integer, nullable=False)\n    pulses = relationship(\"FloorPulse\", back_populates=\"machine\")\nclass Order(Base):",
-        "detail": "TechSaw_backend.models",
-        "documentation": {}
-    },
-    {
-        "label": "Machine",
-        "kind": 6,
-        "importPath": "TechSaw_backend.models",
-        "description": "TechSaw_backend.models",
-        "peekOfCode": "class Machine(Base):\n    __tablename__ = \"machines\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    name = Column(String, index=True, nullable=False)\n    hourly_rate = Column(Integer, nullable=False)\n    pulses = relationship(\"FloorPulse\", back_populates=\"machine\")\nclass Order(Base):\n    __tablename__ = \"orders\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    display_id = Column(String, index=True, nullable=False)",
+        "peekOfCode": "class PulseStatus(str, enum.Enum):\n    RUNNING = \"RUNNING\"\n    STOPPED = \"STOPPED\"\nclass Order(Base):\n    __tablename__ = \"orders\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    display_id = Column(String, index=True, nullable=False)\n    client_name = Column(String, nullable=False)\n    pulses = relationship(\"FloorPulse\", back_populates=\"order\")\nclass FloorPulse(Base):",
         "detail": "TechSaw_backend.models",
         "documentation": {}
     },
@@ -504,7 +495,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.models",
         "description": "TechSaw_backend.models",
-        "peekOfCode": "class Order(Base):\n    __tablename__ = \"orders\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    display_id = Column(String, index=True, nullable=False)\n    client_name = Column(String, nullable=False)\n    pulses = relationship(\"FloorPulse\", back_populates=\"order\")\nclass FloorPulse(Base):\n    __tablename__ = \"floor_pulse\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    machine_id = Column(String, ForeignKey(\"machines.id\"), nullable=False)",
+        "peekOfCode": "class Order(Base):\n    __tablename__ = \"orders\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    display_id = Column(String, index=True, nullable=False)\n    client_name = Column(String, nullable=False)\n    pulses = relationship(\"FloorPulse\", back_populates=\"order\")\nclass FloorPulse(Base):\n    __tablename__ = \"floor_pulse\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    machine_id = Column(String, nullable=True)   # no FK, no machines table needed",
         "detail": "TechSaw_backend.models",
         "documentation": {}
     },
@@ -513,7 +504,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.models",
         "description": "TechSaw_backend.models",
-        "peekOfCode": "class FloorPulse(Base):\n    __tablename__ = \"floor_pulse\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    machine_id = Column(String, ForeignKey(\"machines.id\"), nullable=False)\n    order_id = Column(String, ForeignKey(\"orders.id\"), nullable=False)\n    status = Column(Enum(PulseStatus), default=PulseStatus.RUNNING, nullable=False)\n    blocker_reason = Column(String, nullable=True)\n    last_status_change_at = Column(DateTime, default=datetime.utcnow, nullable=False)\n    machine = relationship(\"Machine\", back_populates=\"pulses\")\n    order = relationship(\"Order\", back_populates=\"pulses\")",
+        "peekOfCode": "class FloorPulse(Base):\n    __tablename__ = \"floor_pulse\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    machine_id = Column(String, nullable=True)   # no FK, no machines table needed\n    order_id = Column(String, ForeignKey(\"orders.id\"), nullable=False)\n    status = Column(Enum(PulseStatus), default=PulseStatus.RUNNING, nullable=False)\n    blocker_reason = Column(String, nullable=True)\n    last_status_change_at = Column(DateTime, default=datetime.utcnow, nullable=False)\n    order = relationship(\"Order\", back_populates=\"pulses\")\nclass Inquiry(Base):",
         "detail": "TechSaw_backend.models",
         "documentation": {}
     },
@@ -522,7 +513,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.models",
         "description": "TechSaw_backend.models",
-        "peekOfCode": "class Inquiry(Base):\n    __tablename__ = \"inquiries\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    client_name = Column(String, nullable=False)\n    phone_number = Column(String, nullable=True)\n    # The OEM Pivot Fields\n    job_material = Column(String, nullable=False)    \n    job_dimension = Column(String, nullable=False)   \n    machine_type = Column(Enum(MachineOperationType), nullable=False)\n    quantity = Column(Integer, default=1)",
+        "peekOfCode": "class Inquiry(Base):\n    __tablename__ = \"inquiries\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    client_name = Column(String, nullable=False)\n    phone_number = Column(String, nullable=True)\n    job_material = Column(String, nullable=False)\n    job_dimension = Column(String, nullable=False)\n    machine_type = Column(Enum(MachineOperationType), nullable=False)\n    quantity = Column(Integer, default=1)\n    status = Column(Enum(InquiryStatus), default=InquiryStatus.NEW, nullable=False)",
         "detail": "TechSaw_backend.models",
         "documentation": {}
     },
@@ -531,16 +522,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.schemas",
         "description": "TechSaw_backend.schemas",
-        "peekOfCode": "class BlockRequest(BaseModel):\n    blocker_reason: str\nclass MachineOut(BaseModel):\n    id: str\n    name: str\n    hourly_rate: int\n    class Config:\n        from_attributes = True\nclass OrderOut(BaseModel):\n    id: str",
-        "detail": "TechSaw_backend.schemas",
-        "documentation": {}
-    },
-    {
-        "label": "MachineOut",
-        "kind": 6,
-        "importPath": "TechSaw_backend.schemas",
-        "description": "TechSaw_backend.schemas",
-        "peekOfCode": "class MachineOut(BaseModel):\n    id: str\n    name: str\n    hourly_rate: int\n    class Config:\n        from_attributes = True\nclass OrderOut(BaseModel):\n    id: str\n    display_id: str\n    client_name: str",
+        "peekOfCode": "class BlockRequest(BaseModel):\n    blocker_reason: str\nclass OrderOut(BaseModel):\n    id: str\n    display_id: str\n    client_name: str\n    class Config:\n        from_attributes = True\nclass FloorPulseOut(BaseModel):\n    id: str",
         "detail": "TechSaw_backend.schemas",
         "documentation": {}
     },
@@ -549,7 +531,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.schemas",
         "description": "TechSaw_backend.schemas",
-        "peekOfCode": "class OrderOut(BaseModel):\n    id: str\n    display_id: str\n    client_name: str\n    class Config:\n        from_attributes = True\nclass FloorPulseOut(BaseModel):\n    id: str\n    status: PulseStatus\n    blocker_reason: Optional[str]",
+        "peekOfCode": "class OrderOut(BaseModel):\n    id: str\n    display_id: str\n    client_name: str\n    class Config:\n        from_attributes = True\nclass FloorPulseOut(BaseModel):\n    id: str\n    status: str\n    blocker_reason: Optional[str]",
         "detail": "TechSaw_backend.schemas",
         "documentation": {}
     },
@@ -558,7 +540,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.schemas",
         "description": "TechSaw_backend.schemas",
-        "peekOfCode": "class FloorPulseOut(BaseModel):\n    id: str\n    status: PulseStatus\n    blocker_reason: Optional[str]\n    last_status_change_at: datetime\n    machine: MachineOut\n    order: OrderOut\n    class Config:\n        from_attributes = True\n# What the website sends",
+        "peekOfCode": "class FloorPulseOut(BaseModel):\n    id: str\n    status: str\n    blocker_reason: Optional[str]\n    last_status_change_at: datetime\n    order: OrderOut\n    machine_label: Optional[str] = \"Floor\"\n    class Config:\n        from_attributes = True\nclass InquiryCreate(BaseModel):",
         "detail": "TechSaw_backend.schemas",
         "documentation": {}
     },
@@ -567,7 +549,7 @@
         "kind": 6,
         "importPath": "TechSaw_backend.schemas",
         "description": "TechSaw_backend.schemas",
-        "peekOfCode": "class InquiryCreate(BaseModel):\n    client_name: str\n    phone_number: Optional[str] = None\n    job_material: str\n    job_dimension: str\n    machine_type: MachineOperationType\n    quantity: int = 1\n# What the CRM/Dashboards receive\nclass InquiryOut(BaseModel):\n    id: str",
+        "peekOfCode": "class InquiryCreate(BaseModel):\n    client_name: str\n    phone_number: Optional[str] = None\n    job_material: str\n    job_dimension: str\n    machine_type: MachineOperationType\n    quantity: int = 1\nclass InquiryOut(BaseModel):\n    id: str\n    client_name: str",
         "detail": "TechSaw_backend.schemas",
         "documentation": {}
     },

@@ -8,7 +8,7 @@ type Pulse = {
   status: "RUNNING" | "STOPPED";
   blocker_reason: string | null;
   last_status_change_at: string;
-  machine: { name: string };
+  machine_label: string;           // replaces machine: { name, hourly_rate }
   order: { id: string; display_id: string; client_name: string };
 };
 
@@ -99,7 +99,7 @@ export default function FloorKiosk() {
                 {/* 1. Header & Current Job */}
                 <div className="mb-6">
                   <div className="flex justify-between items-start">
-                    <h2 className={`text-2xl font-black mb-1 ${isIdle ? 'text-slate-400' : 'text-white'}`}>{pulse.machine.name}</h2>
+                    <h2 className={`text-2xl font-black mb-1 ${isIdle ? 'text-slate-400' : 'text-white'}`}>{pulse.machine_label}</h2>
                     {!isAssigning && !isStopped && !isHalting && !isIdle && (
                       <button onClick={() => setAssigningPulseId(pulse.id)} className="text-xs font-bold uppercase tracking-wider bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-md flex items-center gap-1 transition-colors">
                         <ArrowDownCircle className="w-4 h-4" /> Load New
