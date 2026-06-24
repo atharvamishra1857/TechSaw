@@ -218,6 +218,14 @@
         "documentation": {}
     },
     {
+        "label": "SessionLocal",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
         "label": "engine",
         "importPath": "database",
         "description": "database",
@@ -241,22 +249,6 @@
         "importPath": "enum",
         "description": "enum",
         "detail": "enum",
-        "documentation": {}
-    },
-    {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "Optional",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
         "documentation": {}
     },
     {
@@ -290,6 +282,22 @@
         "description": "models",
         "isExtraImport": true,
         "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
         "documentation": {}
     },
     {
@@ -515,6 +523,15 @@
         "description": "TechSaw_backend.models",
         "peekOfCode": "class Inquiry(Base):\n    __tablename__ = \"inquiries\"\n    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))\n    client_name = Column(String, nullable=False)\n    phone_number = Column(String, nullable=True)\n    job_material = Column(String, nullable=False)\n    job_dimension = Column(String, nullable=False)\n    machine_type = Column(Enum(MachineOperationType), nullable=False)\n    quantity = Column(Integer, default=1)\n    status = Column(Enum(InquiryStatus), default=InquiryStatus.NEW, nullable=False)",
         "detail": "TechSaw_backend.models",
+        "documentation": {}
+    },
+    {
+        "label": "reset_transactions",
+        "kind": 2,
+        "importPath": "TechSaw_backend.reset",
+        "description": "TechSaw_backend.reset",
+        "peekOfCode": "def reset_transactions():\n    db = SessionLocal()\n    print(\"Initiating Factory Floor Reset...\")\n    try:\n        # 1. Clear the active shop floor\n        db.query(models.FloorPulse).delete()\n        # 2. Delete the factory orders (Strictly excluding the 'idle' sentinel)\n        db.query(models.Order).filter(models.Order.id != 'idle').delete()\n        # 3. Delete the CRM inquiries\n        db.query(models.Inquiry).delete()",
+        "detail": "TechSaw_backend.reset",
         "documentation": {}
     },
     {
